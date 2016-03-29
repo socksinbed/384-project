@@ -2,7 +2,7 @@ import itertools
 
 
 
-def hello():
+def init_guess_set():
     stuff = [[1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6]]
     S = itertools.product(*stuff)
     S2 = []
@@ -18,7 +18,7 @@ def best_guess(S):
     best = None
     for guess in S:
         num_eliminated = least_eliminated(S, guess)
-        if num_eliminated > most_removed:
+        if num_eliminated >= most_removed:
             most_removed == num_eliminated
             best = guess
 
