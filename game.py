@@ -1,12 +1,18 @@
 import itertools
 import collections
+from mastermindtester import *
 
 
 # Main loop for program execution.  Should run continuously until user enters
 # "exit".
 def main():
+	S = init_guess_set()
+	guess = [1,1,2,2] #initial guess
+	i = 1
+	print("Guess ", i, ": ", guess, "\n")
+
 	while(1):
-		print(solve(0, 0), "\n")
+
 		white = input("Number of white pins: ")
 		if white == "exit":
 			print("Exiting...\n")
@@ -18,11 +24,14 @@ def main():
 		print("\nChecking next move...")
 		print("---------------------")
 
+		if int(white) == 0 and int(black) == 4:
+			print("Game over! Num guesses = ", i)
+			return
 
-# CSP/Heuristic search for Mastermind.
-def solve(white, black):
-	guess = [0] * 4
-	return guess
+		S = remove_not_matching(S, guess, (int(white), int(black)))
+		guess = best_guess(S)
+		i += 1
+		print("Guess ", i, ": ", guess, "\n")
 
 
 if __name__ == '__main__':
