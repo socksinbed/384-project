@@ -45,7 +45,7 @@ class StateSpace:
     '''Abstract class for defining State spaces for search routines'''
     n = 0
 
-    def __init__(self, action, gval, parent):
+    def __init__(self, action, parent):
         '''Problem specific state space objects must always include the data items
            a) self.action === the name of the action used to generate
               this state from parent. If it is the initial state a good
@@ -56,7 +56,7 @@ class StateSpace:
               applying "action"
         '''
         self.action = action
-        self.gval = gval
+        self.gval = 1
         self.parent = parent
         self.index = StateSpace.n
         StateSpace.n = StateSpace.n + 1
