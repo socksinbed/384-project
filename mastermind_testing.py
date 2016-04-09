@@ -86,7 +86,7 @@ def test(code, colors, pegs, strategy, printing=True):
         print("Time taken {} colors, {} pegs, code: {}: {} seconds".format(colors, pegs, code, ftime))
         print("Guesses taken: {}".format(guesses))
 
-    return guesses
+    return (ftime, guesses)
 
 
 # for benchmarking tests using random as one test
@@ -94,22 +94,123 @@ def test(code, colors, pegs, strategy, printing=True):
 def average_test(code, colors, pegs):
     
     guesses = 0
+    max_num = 0
+    times = 0
+    max_time = 0
     for i in range(100):
-        guesses += test(code, colors, pegs, 'random', False)
+        (time, guess) = test(code, colors, pegs, 'random', False)
+        guesses += guess
+        times += time
+        if guess > max_num:
+            max_num = guess
+        if time > max_time:
+            max_time = time
 
-    return guesses / 100
+    return (max_num, guesses / 100, max_time, time / 100)
     
     
 
 
-def doall():
+def doallrand(colours, pegs):
 
     guesses = 0
-
     codes = 0
-    for code in Mastermind(4, 2).codes():
-        guesses += average_test(code, 4, 2)
+    max_num = 0
+    max_t = 0
+    time = 0
+    for code in Mastermind(colours, pegs).codes():
+        (m, guess, m_t, t) = average_test(code, colours, pegs)
+        guesses += guess
+        time += t
+        if m > max_num:
+            max_num = m
+        if m_t > max_t:
+            max_t = m_t
         codes += 1
 
+    print("avg time: " + str(time/codes))
+    print("max time: " + str(max_t))
+    print("max num: " + str(max_num))
+    print("avg num: " + str(guesses/codes))
 
-    return guesses/codes
+    return
+
+
+def doall(colours, pegs, strategy):
+    guesses = 0
+    codes = 0
+    max_num = 0
+    max_t = 0
+    time = 0
+    
+    for code in Mastermind(colours, pegs).codes():
+        (t, g) = test(code, colours, pegs, strategy, False)
+        guesses += g
+        time += t
+        if g > max_num:
+            max_num = g
+        if t > max_t:
+            max_t = t
+        codes += 1
+
+    print("avg time: " + str(time/codes))
+    print("max time: " + str(max_t))
+    print("max num: " + str(max_num))
+    print("avg num: " + str(guesses/codes))
+    
+    return guesses
+
+
+if __name__ == '__main__':
+
+    print("Tests for Random Guess")
+    print("----- 3,3")
+    doallrand(3,3)
+    print("----- 4,3")
+    doallrand(4,3)
+    print("----- 5,3")
+    doallrand(5,3)
+    print("----- 6,3")
+    doallrand(6,3)
+    print("----- 4,4")
+    doallrand(4,4)
+    print("----- 5,4")
+    doallrand(5,4)
+    print("----- 6,4")
+    doallrand(6,4)
+
+    print("\n")
+    print("Tests for Donald Knuth's Five Guess Algorithm")
+    print("----- 3,3")
+    doall(3,3,'dk')
+    print("----- 4,3")
+    doall(4,3,'dk')
+    print("----- 5,3")
+    doall(5,3,'dk')
+    print("----- 6,3")
+    doall(6,3,'dk')
+    print("----- 4,4")
+    doall(4,4,'dk')
+    print("----- 5,4")
+    doall(5,4,'dk')
+    print("----- 6,4")
+    doall(6,4,'dk')
+
+    print("\n")
+    print("Tests for Donald Knuth’s Algorithm on Remaining Guesses")
+    print("----- 3,3")
+    doall(3,3,'dkr')
+    print("----- 4,3")
+    doall(4,3,'dkr')
+    print("----- 5,3")
+    doall(5,3,'dkr')
+    print("----- 6,3")
+    doall(6,3,'dkr')
+    print("----- 4,4")
+    doall(4,4,'dkr')
+    print("----- 5,4")
+    doall(5,4,'dkr')
+    print("----- 6,4")
+    doall(6,4,'dkr')
+    
+    
