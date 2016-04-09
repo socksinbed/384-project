@@ -2,7 +2,7 @@ To play the game, execute game.py
 
 Think of a code of length 2 to 4, consisting of 2 to 9 colours (colours are 
 represented as numbers).
-	Ex: (1, 2, 3) or (2, 2, 6, 5)
+    Ex: (1, 2, 3) or (2, 2, 6, 5)
 The program has clear command line prompts for setting up the game.
 
 Once the game begins, the computer will make an initial guess. 
@@ -11,9 +11,9 @@ to the number of pegs in the guess that were the same colour as pegs in your cod
 but in the wrong position.
 Then enter the number of black pins, which is the number of pegs of the correct 
 colour in the correct position. 
-	Ex: If your code is (3, 4, 3, 5)
-		and the computer guessed (3, 3, 4, 4),
-		you would enter 2 white pins and 1 black pin
+    Ex: If your code is (3, 4, 3, 5)
+        and the computer guessed (3, 3, 4, 4),
+        you would enter 2 white pins and 1 black pin
 The computer will keep guessing until you enter 0 white pins and 4 black pins, 
 indicating the correct guess was made.
 You can type "exit" at any time to end the game.
