@@ -28,11 +28,7 @@ class Mastermind:
 
     def codes_list(self): # return a LIST of codes
 
-        codes = []
-        for code in self.codes():
-            codes.append(code)
-
-        return codes
+        return list(self.codes())
 
     def check_whites(self, previous_guess, new_guess, num_whites, num_blacks):
 
